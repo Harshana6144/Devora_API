@@ -1,19 +1,20 @@
-name: CI/CD Deployment Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -23,19 +24,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Setup SSH key
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 20.205.22.95 >> ~/.ssh/known_hosts
 
-      - name: Deploy to server
+      - name: Deploy to VM
         run: |
-          ssh -i ~/.ssh/id_rsa dpd@20.205.22.95 "
+          ssh -i ~/.ssh/id_rsa dpd@YOUR.SERVER.IP.HERE '
             cd /home/dpd/Devora_API &&
             git pull &&
-            # Add any other deploy commands here, for example:
-            # ./deploy_script.sh
-            echo 'Deployment successful!'
-          "
+            echo "✅ Deployment complete."
+          '
