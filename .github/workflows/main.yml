@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to VM
         run: |
-          ssh -i ~/.ssh/id_rsa dpd@YOUR.SERVER.IP.HERE '
+          ssh -i ~/.ssh/id_rsa dpd@20.205.22.95 '
             cd /home/dpd/Devora_API &&
             git pull &&
             echo "✅ Deployment complete."
