@@ -63,7 +63,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest
+        pytest Devora_API/tests
 
   deploy:
     name: Deploy
