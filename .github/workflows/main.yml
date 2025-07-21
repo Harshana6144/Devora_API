@@ -61,9 +61,11 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Show directory for debug
+        run: ls -la
+
       - name: Run tests
-        run: |
-          pytest tests
+        run: pytest tests
 
   deploy:
     name: Deploy
