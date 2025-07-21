@@ -44,5 +44,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa dpd@20.205.22.95 '
             cd /home/dpd/Devora_API &&
             git pull &&
-            echo "✅ Deployment complete."
+            echo "✅ Deployment complete." &&
+            sudo systemctl restart nginx &&
+            echo "🔄 Nginx restarted."
           '
