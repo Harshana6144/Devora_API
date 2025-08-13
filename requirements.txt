@@ -1,5 +1,5 @@
 fastapi
-mangum
-pydantic
+uvicorn
 requests
+pydantic
 google-generativeai
