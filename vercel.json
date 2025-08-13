@@ -1,11 +1,9 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/api.py", "use": "@vercel/python" },
     { "src": "api/hello.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/api", "dest": "api/api.py" },
     { "src": "/api/hello", "dest": "api/hello.js" }
   ]
 }
